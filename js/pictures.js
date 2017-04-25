@@ -21,7 +21,7 @@ for (var i=0; i < 25; i++) {
   'url': 'photos/'+(i+1)+'.jpg',
   'likes': getRandomLike(15, 200), // преобразовать к промежутку
   'comments': getRandomComment(),  // преобразовать к промежутку
-  } 
+  }
 }
 
 
@@ -55,10 +55,18 @@ showGalleryOverlay.classList.remove('invisible');
 
 // 2 задание
 
-/*picturesTemplate.addEventListener('click', functin(event) {
+/*picturesTemplate.addEvent Listener('click', functin(event) {
   event.preventDefault();
   showGalleryOverlay.classList.remove('invisible');
 }); */
+var openPictures = document.querySelector('.pictures');
+  openPictures.addEventListener('click', function(event) {
+   event.preventDefault();
+   var target = event.target;
+   if (target.className = 'picture') {
+   showGalleryOverlay.classList.remove('invisible');
+   }
+  });
 
 var closePicture = document.querySelector('.gallery-overlay-close');
   closePicture.addEventListener('click', function(event) {
@@ -66,10 +74,22 @@ var closePicture = document.querySelector('.gallery-overlay-close');
   showGalleryOverlay.classList.add('invisible');
 });
 
+document.addEventListener('keydown', function(event){
+  if (event.keyCode === 27) {
+  showGalleryOverlay.classList.add('invisible');
+}
+});
+/*
+var ENTER_KEY_CODE = 13;
+var isActivationEvent === ENTER_KEY_CODE;
+*/
 
+/*
 var hideUploadForm = document.querySelector('.upload-form-cancel');
 var uploadOverlay = document.querySelector('.upload-overlay');
 hideUploadForm.addEventListener('click', function (event) {
   event.preventDefault();
   uploadOverlay.classList.add('upload-overlay-close');
-});
+});*/
+
+// 3 задание

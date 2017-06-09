@@ -62,10 +62,20 @@ showGalleryOverlay.classList.remove('invisible');
 var openPictures = document.querySelector('.pictures');
   openPictures.addEventListener('click', function(event) {
    event.preventDefault();
-   var target = event.target;
-   if (target.className = 'picture') {
+   var target = event.target.parentNode;
+   if (target.className === 'picture') {
+   var imgsrc = target.querySelector('img').getAttribute('src');
+   document.querySelector('.gallery-overlay-image').setAttribute('src', imgsrc);
+   document.querySelector('.gallery-overlay-controls-like').textContent = picturesDescriptions[Math.floor(Math.random() * picturesDescriptions.length)].likes;;
+   document.querySelector('.gallery-overlay-controls-comments').textContent = picturesDescriptions[Math.floor(Math.random() * picturesDescriptions.length)].comments;
    showGalleryOverlay.classList.remove('invisible');
    }
+
+   document.addEventListener('keydown', function(event){
+     if (event.keyCode === 27) {
+     showGalleryOverlay.classList.add('invisible');
+   }
+   });
   });
 
 var closePicture = document.querySelector('.gallery-overlay-close');
@@ -73,23 +83,61 @@ var closePicture = document.querySelector('.gallery-overlay-close');
   event.preventDefault();
   showGalleryOverlay.classList.add('invisible');
 });
+  closePicture.addEventListener('keydown', function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+    showGalleryOverlay.classList.add('invisible');
+   }
+  });
 
-document.addEventListener('keydown', function(event){
-  if (event.keyCode === 27) {
-  showGalleryOverlay.classList.add('invisible');
-}
-});
-/*
-var ENTER_KEY_CODE = 13;
-var isActivationEvent === ENTER_KEY_CODE;
-*/
 
-/*
-var hideUploadForm = document.querySelector('.upload-form-cancel');
-var uploadOverlay = document.querySelector('.upload-overlay');
-hideUploadForm.addEventListener('click', function (event) {
-  event.preventDefault();
-  uploadOverlay.classList.add('upload-overlay-close');
-});*/
+ var upload = document.getElementById('upload-file');
+
+    upload.addEventListener('click', function(event) {
+      event.preventDefault();
+      hideOverlay.classList.remove('invisible');
+
+      document.addEventListener('keydown', function(event) {
+       if (event.keyCode === 27) {
+       hideOverlay.classList.add('invisible');
+     }
+     });
+    });
+
+ var cancelUpload = document.getElementById('upload-cancel');
+
+    cancelUpload.addEventListener('click', function() {
+      hideOverlay.classList.add('invisible');
+
+
+    });
+
 
 // 3 задание
+
+var filtersPictures = document.getElementById('upload-filter');
+  var bigPicture = document.querySelector('.filter-image-preview');
+  filtersPictures.addEventListener('change', function(event) {
+    var input = event.target;
+    if (input.name != 'upload-filter') {
+      return;
+    }
+    var className = 'filter-image-preview';
+    className += ' filter-' + input.value;
+    bigPicture.className = className;
+
+  });
+
+
+  var sizeMinus = .upload-resize-controls-button-dec;
+  var sizePlus = .upload-resize-controls-button-inc;
+  var inputChange = .upload-resize-controls-value;
+  sizeMinus.addEventListener('click' function() {
+    inputChange.value -= 25; // добавить логику, тут если меньше 25, то ничего не делать
+  });
+  sizePlus.addEventListener // аналогично
+
+
+  inputChange.addEventListener('change', function(event) {
+    bigPicture.style.transform = 'scale(' + (inputChange / 100)+ ')';
+  });
